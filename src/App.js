@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import 'typeface-roboto';
 import "./App.css";
 
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles/';
