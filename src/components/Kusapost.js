@@ -27,17 +27,17 @@ const styles = {
     }
 };
 
-class Kusopost extends Component {
+class kusapost extends Component {
 	render() {
         dayjs.extend(relativeTime)
 		const {
 			classes,
-			kusopost: {
+			kusapost: {
 				body,
 				createdAt,
 				userImage,
 				userHandle,
-				kusopostId,
+				kusapostId,
 				likeCount,
 				commentCount
 			}
@@ -65,4 +65,4 @@ class Kusopost extends Component {
 	}
 }
 
-export default withStyles(styles)(Kusopost);
+export default withStyles(styles)(kusapost);

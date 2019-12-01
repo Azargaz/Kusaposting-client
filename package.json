@@ -1,5 +1,5 @@
 {
-  "name": "kusoposting-client",
+  "name": "kusaposting-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -34,5 +34,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://europe-west1-kusoposting.cloudfunctions.net/api"
+  "proxy": "https://europe-west1-kusaposting.cloudfunctions.net/api"
 }

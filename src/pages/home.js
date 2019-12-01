@@ -2,32 +2,32 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 
-import Kusopost from '../components/Kusopost';
+import Kusapost from '../components/Kusapost';
 
 class home extends Component {
     state = {
-        kusoposts: null
+        kusaposts: null
     }
     
     componentDidMount() {
-        axios.get('/kusoposts')
+        axios.get('/kusaposts')
             .then(res => {
                 console.log(res.data);
                 this.setState({
-                    kusoposts: res.data
+                    kusaposts: res.data
                 })
             })
             .catch(err => console.error(err));
     }
 
     render() {
-        let recentKusopostsMarkup = this.state.kusoposts ? (
-            this.state.kusoposts.map((kusopost, id) => <Kusopost key={id} kusopost={kusopost} />)
+        let recentkusapostsMarkup = this.state.kusaposts ? (
+            this.state.kusaposts.map((kusapost, id) => <Kusapost key={id} kusapost={kusapost} />)
         ) : <p>Loading...</p>;
         return (
             <Grid container spacing={10}>
                 <Grid item sm={8} xs={12}>
-                    {recentKusopostsMarkup}
+                    {recentkusapostsMarkup}
                 </Grid>
                 <Grid item sm={4} xs={12}>
                     <p>Profile...</p>
