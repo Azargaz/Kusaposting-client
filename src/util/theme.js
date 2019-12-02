@@ -19,8 +19,8 @@ export default {
 		},
 		image: {
 			margin: '20px auto 20px auto',
-			width: '200px',
-			height: '200px',
+			width: '100px',
+			height: '100px',
 			border: 'solid 1px black'
 		},
 		pageTitle: {
