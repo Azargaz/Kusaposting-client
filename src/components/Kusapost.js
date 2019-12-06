@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
 import MyButton from '../util/MyButton';
+import DeleteKusapost from './DeleteKusapost';
 
 // MUI stuff
 import Card from '@material-ui/core/Card';
@@ -23,6 +24,7 @@ import { likeKusapost, unlikeKusapost } from '../redux/actions/dataActions';
 
 const styles = {
 	card: {
+        position: 'relative',
         display: 'flex',
         marginBottom: 20        
     },
@@ -69,7 +71,10 @@ class Kusapost extends Component {
 				commentCount
             },
             user: {
-                authenticated
+                authenticated,
+                credentials: {
+                    handle
+                }
             }
         } = this.props;
         const likeButton = !authenticated ? (
@@ -89,6 +94,10 @@ class Kusapost extends Component {
                 </MyButton>
             )
         );
+
+        const deleteButton = authenticated && userHandle === handle ? (
+            <DeleteKusapost kusapostId={kusapostId} />
+        ) : null;
 
 		return (
 			<Card className={classes.card}>
@@ -112,6 +121,7 @@ class Kusapost extends Component {
                         <ChatIcon color="primary"/>
                     </MyButton>
                     <span>{commentCount}</span>
+                    {deleteButton}
 				</CardContent>
 			</Card>
 		);

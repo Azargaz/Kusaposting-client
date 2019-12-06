@@ -1,4 +1,11 @@
-import { SET_KUSAPOSTS, LOADING_DATA, LIKE_KUSAPOST, UNLIKE_KUSAPOST } from '../types';
+import { 
+    SET_KUSAPOSTS, 
+    LOADING_DATA, 
+    LIKE_KUSAPOST, 
+    UNLIKE_KUSAPOST,
+    DELETE_KUSAPOST
+} from '../types';
+
 import axios from 'axios';
 
 export const getKusaposts = () => (dispatch) => {
@@ -40,3 +47,17 @@ export const unlikeKusapost = (kusapostId) => dispatch => {
         })
         .catch(err => console.error(err));
 }
+
+export const deleteKusapost = (kusapostId) => (dispatch) => {
+    axios
+        .delete(`/kusapost/${kusapostId}`)
+        .then(() => {
+            dispatch({
+                type: DELETE_KUSAPOST,
+                payload: kusapostId
+            });
+        })
+        .catch(err => {
+            console.error(err);
+        })
+};
