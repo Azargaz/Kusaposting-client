@@ -2,7 +2,9 @@ import {
 	SET_USER,
 	SET_AUTHENTICATED,
 	SET_UNAUTHENTICATED,
-	LOADING_USER
+	LOADING_USER,
+	LIKE_KUSAPOST,
+	UNLIKE_KUSAPOST
 } from '../types';
 
 const initialState = {
@@ -32,6 +34,22 @@ export default function(state = initialState, action) {
 			return {
 				...state,
 				loading: true
+			};
+		case LIKE_KUSAPOST:
+			return {
+				...state,
+				likes: [
+					...state.likes,
+					{
+						userHandle: state.credentials.handle,
+						kusapostId: action.payload.kusapostId
+					}
+				]
+			};
+		case UNLIKE_KUSAPOST:
+			return {
+				...state,
+				likes: state.likes.filter(like => like.kusapostId !== action.payload.kusapostId)
 			}
 		default:
 			return state;
