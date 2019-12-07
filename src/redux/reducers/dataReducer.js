@@ -3,7 +3,8 @@ import {
     LIKE_KUSAPOST, 
     UNLIKE_KUSAPOST, 
     LOADING_DATA,
-    DELETE_KUSAPOST
+    DELETE_KUSAPOST,
+    POST_KUSAPOST
 } from '../types';
 
 const initialState = {
@@ -38,6 +39,14 @@ export default function(state = initialState, action) {
             state.kusaposts.splice(index, 1);
             return {
                 ...state
+            }
+        case POST_KUSAPOST:
+            return {
+                ...state,
+                kusaposts: [
+                    action.payload,
+                    ...state.kusaposts
+                ]
             }
         default:
             return state;
