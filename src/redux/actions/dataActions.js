@@ -7,7 +7,9 @@ import {
     SET_ERRORS,
     POST_KUSAPOST,
     CLEAR_ERRORS,
-    LOADING_UI
+    LOADING_UI,
+    STOP_LOADING_UI,
+    SET_KUSAPOST
 } from '../types';
 
 import axios from 'axios';
@@ -27,6 +29,24 @@ export const getKusaposts = () => (dispatch) => {
                 payload: []
             });
             console.error(err)
+        });
+};
+
+export const getKusapost = (kusapostId) => (dispatch) => {
+    dispatch({ type: LOADING_UI });
+    axios
+        .get(`/kusapost/${kusapostId}`)
+        .then(res => {
+            dispatch({
+                type: SET_KUSAPOST,
+                payload: res.data
+            });
+            dispatch({
+                type: STOP_LOADING_UI
+            });
+        })
+        .catch(err => {
+            console.error(err);
         });
 };
 

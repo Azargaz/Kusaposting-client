@@ -4,7 +4,8 @@ import {
     UNLIKE_KUSAPOST, 
     LOADING_DATA,
     DELETE_KUSAPOST,
-    POST_KUSAPOST
+    POST_KUSAPOST,
+    SET_KUSAPOST
 } from '../types';
 
 const initialState = {
@@ -26,6 +27,11 @@ export default function(state = initialState, action) {
                 ...state,
                 kusaposts: action.payload,
                 loading: false
+            }
+        case SET_KUSAPOST:
+            return {
+                ...state,
+                kusapost: action.payload
             }
         case LIKE_KUSAPOST:
         case UNLIKE_KUSAPOST:
