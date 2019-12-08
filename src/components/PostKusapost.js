@@ -15,20 +15,22 @@ import CloseIcon from '@material-ui/icons/Close';
 
 // Redux stuff
 import { connect } from 'react-redux';
-import { postKusapost } from '../redux/actions/dataActions';
+import { postKusapost, clearErrors } from '../redux/actions/dataActions';
 
 const styles = theme => ({
     ...theme.styles,
     submitButton: {
-        position: 'relative'
+        position: 'relative',
+        float: 'right',
+        marginTop: 10
     },
     progressSpinner: {
         position: 'absolute'
     },
     closeButton: {
         position: 'absolute',
-        left: '90%',
-        top: '10%'
+        left: '91%',
+        top: '6%'
     }
 });
 
@@ -47,9 +49,10 @@ class PostKusapost extends Component {
         }
         if(!nextProps.UI.errors && !nextProps.UI.loading) {
             this.setState({
-                body: ''
+                body: '',
+                open: false,
+                errors: {}
             });
-            this.handleClose();
         }
     }
 
@@ -60,6 +63,7 @@ class PostKusapost extends Component {
     };
 
     handleClose = () => {
+        this.props.clearErrors();
         this.setState({
             open: false,
             errors: {}
@@ -138,6 +142,7 @@ class PostKusapost extends Component {
 
 PostKusapost.propTypes = {
     postKusapost: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
     UI: PropTypes.object.isRequired
 };
 
@@ -145,4 +150,4 @@ const mapStateToProps = (state) => ({
     UI: state.UI
 });
 
-export default connect(mapStateToProps, { postKusapost })(withStyles(styles)(PostKusapost));
+export default connect(mapStateToProps, { postKusapost, clearErrors })(withStyles(styles)(PostKusapost));
