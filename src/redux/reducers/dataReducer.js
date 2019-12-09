@@ -37,6 +37,9 @@ export default function(state = initialState, action) {
         case UNLIKE_KUSAPOST:
             index = state.kusaposts.findIndex((kusapost) => kusapost.kusapostId === action.payload.kusapostId);
             state.kusaposts[index] = action.payload;    
+            if(state.kusapost.kusapostId === action.payload.kusapostId) {
+                state.kusapost = action.payload;
+            }
             return {
                 ...state
             }

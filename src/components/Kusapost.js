@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import MyButton from '../util/MyButton';
 import DeleteKusapost from './DeleteKusapost';
 import KusapostDialog from './KusapostDialog';
+import LikeButton from './LikeButton';
 
 // MUI stuff
 import Card from '@material-ui/core/Card';
@@ -16,12 +17,9 @@ import Typography from '@material-ui/core/Typography';
 
 // Icons
 import ChatIcon from '@material-ui/icons/Chat';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 // Redux
 import { connect } from 'react-redux';
-import { likeKusapost, unlikeKusapost } from '../redux/actions/dataActions';
 
 const styles = {
 	card: {
@@ -42,22 +40,6 @@ const styles = {
 };
 
 class Kusapost extends Component {
-    likedKusapost = () => {
-        if(this.props.user.likes && this.props.user.likes.find(like => like.kusapostId === this.props.kusapost.kusapostId))
-            return true;
-        else 
-            return false;
-    };
-
-    likeKusapost = () => {
-        this.props.likeKusapost(this.props.kusapost.kusapostId);
-    };
-
-    
-    unlikeKusapost = () => {
-        this.props.unlikeKusapost(this.props.kusapost.kusapostId);
-    };
-
 	render() {
         dayjs.extend(relativeTime)
 		const {
@@ -78,23 +60,7 @@ class Kusapost extends Component {
                 }
             }
         } = this.props;
-        const likeButton = !authenticated ? (
-            <MyButton tip="Like">
-                <Link to="/login">
-                    <FavoriteBorder color="primary"/>
-                </Link>
-            </MyButton>
-        ) : (
-            this.likedKusapost() ? (
-                <MyButton tip="Unlike" onClick={this.unlikeKusapost}>
-                    <FavoriteIcon color="primary"/>
-                </MyButton>
-            ) : (
-                <MyButton tip="Like" onClick={this.likeKusapost}>
-                    <FavoriteBorder color="primary"/>
-                </MyButton>
-            )
-        );
+        
 
         const deleteButton = authenticated && userHandle === handle ? (
             <DeleteKusapost kusapostId={kusapostId} />
@@ -121,7 +87,7 @@ class Kusapost extends Component {
                         {dayjs(createdAt).fromNow()}
                     </Typography>
                     <Typography variant="body1">{body}</Typography>
-                    {likeButton}
+                    <LikeButton kusapostId={kusapostId} />
                     <span>{likeCount}</span>
                     <MyButton tip="Comments">
                         <ChatIcon color="primary"/>
@@ -135,8 +101,6 @@ class Kusapost extends Component {
 }
 
 Kusapost.propTypes = {
-    likeKusapost: PropTypes.func.isRequired,
-    unlikeKusapost: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     kusapost: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired
@@ -146,9 +110,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-const mapActionsToProps = {
-    likeKusapost,
-    unlikeKusapost
-};
-
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Kusapost));
+export default connect(mapStateToProps)(withStyles(styles)(Kusapost));
