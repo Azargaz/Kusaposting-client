@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 
-import Kusapost from '../components/Kusapost';
-import Profile from '../components/Profile'
+import Kusapost from '../components/kusapost/Kusapost';
+import Profile from '../components/profile/Profile'
 
 import { connect } from 'react-redux';
 import { getKusaposts } from '../redux/actions/dataActions';
