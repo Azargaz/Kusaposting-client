@@ -2,10 +2,11 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import MyButton from '../../util/MyButton';
-import dayjs from 'dayjs';
-import { Link } from 'react-router-dom';
 import LikeButton from './LikeButton';
 import Comments from './Comments';
+import CommentForm from './CommentForm';
+import dayjs from 'dayjs';
+import { Link } from 'react-router-dom';
 
 // MUI stuff
 import Dialog from '@material-ui/core/Dialog';
@@ -21,7 +22,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 
 // Redux
 import { connect } from 'react-redux';
-import { getKusapost } from '../../redux/actions/dataActions';
+import { getKusapost, clearErrors } from '../../redux/actions/dataActions';
 
 const styles = theme => ({
     ...theme.styles,
@@ -63,6 +64,7 @@ class KusapostDialog extends Component {
 
     handleClose = () => {
         this.setState({ open: false });
+        this.props.clearErrors();
     };
 
     render() {
@@ -117,6 +119,7 @@ class KusapostDialog extends Component {
                     <span>{commentCount}</span>
                 </Grid>
                 <hr className={classes.visibleSeparator} />
+                <CommentForm kusapostId={kusapostId} />
                 <Comments comments={comments} />
             </Grid>
         );
@@ -162,7 +165,8 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = {
-    getKusapost
+    getKusapost,
+    clearErrors
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(KusapostDialog));

@@ -5,7 +5,8 @@ import {
     LOADING_DATA,
     DELETE_KUSAPOST,
     POST_KUSAPOST,
-    SET_KUSAPOST
+    SET_KUSAPOST,
+    SUBMIT_COMMENT
 } from '../types';
 
 const initialState = {
@@ -56,6 +57,14 @@ export default function(state = initialState, action) {
                     action.payload,
                     ...state.kusaposts
                 ]
+            }
+        case SUBMIT_COMMENT:
+            return {
+                ...state,
+                kusapost: {
+                    ...state.kusapost,
+                    comments: [action.payload, ...state.kusapost.comments]
+                }
             }
         default:
             return state;

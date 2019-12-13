@@ -9,7 +9,8 @@ import {
     CLEAR_ERRORS,
     LOADING_UI,
     STOP_LOADING_UI,
-    SET_KUSAPOST
+    SET_KUSAPOST,
+    SUBMIT_COMMENT
 } from '../types';
 
 import axios from 'axios';
@@ -59,7 +60,7 @@ export const postKusapost = (newKusapost) => dispatch => {
                 type: POST_KUSAPOST,
                 payload: res.data
             });
-            dispatch({ type: CLEAR_ERRORS });
+            dispatch(clearErrors());
         })
         .catch(err => {
             console.error(err);
@@ -90,6 +91,25 @@ export const unlikeKusapost = (kusapostId) => dispatch => {
             });
         })
         .catch(err => console.error(err));
+};
+
+export const submitComment = (kusapostId, commentData) => (dispatch) => {
+    axios
+        .post(`/kusapost/${kusapostId}/comment`, commentData)
+        .then(res => {
+            dispatch({ 
+                type: SUBMIT_COMMENT,
+                payload: res.data
+            });
+            dispatch(clearErrors());
+        })
+        .catch(err => {
+            console.error(err)
+            dispatch({
+                type: SET_ERRORS,
+                payload: err.response.data
+            });
+        });
 };
 
 export const deleteKusapost = (kusapostId) => (dispatch) => {
