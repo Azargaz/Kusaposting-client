@@ -126,6 +126,24 @@ export const deleteKusapost = (kusapostId) => (dispatch) => {
         })
 };
 
+export const getUserData = (userHandle) => (dispatch) => {
+    dispatch({ type: LOADING_DATA });
+    axios
+        .get(`/user/${userHandle}`)
+        .then(res => {
+            dispatch({
+                type: SET_KUSAPOSTS,
+                payload: res.data.kusaposts
+            });
+        })
+        .catch(() => {
+            dispatch({
+                type: SET_KUSAPOSTS,
+                payload: null
+            });
+        });
+};
+
 export const clearErrors = () => (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });
 };
