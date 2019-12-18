@@ -61,6 +61,7 @@ function App() {
 								component={signup}
 							/>
 							<Route exact path="/user/:handle" component={user} />
+							<Route exact path="/user/:handle/kusapost/:kusapostId" component={user} />
 						</Switch>
 					</div>
 				</Router>

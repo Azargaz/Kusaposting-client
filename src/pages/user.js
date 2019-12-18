@@ -11,10 +11,15 @@ import { getUserData } from '../redux/actions/dataActions';
 
 class user extends Component {
     state = {
-        profile: null
+        profile: null,
+        kusapostIdParam: null
     }
     componentDidMount() {
         const handle = this.props.match.params.handle;
+        const kusapostId = this.props.match.params.kusapostId;
+
+        if(kusapostId) this.setState({ kusapostIdParam: kusapostId });
+
         this.props.getUserData(handle);
         axios
             .get(`/user/${handle}`)
@@ -30,13 +35,21 @@ class user extends Component {
 
     render() {
         const { kusaposts, loading } = this.props.data;
+        const { kusapostIdParam } = this.state;
 
         const kusapostsMarkup = loading ? (
             <p>Loading...</p>
         ) : kusaposts === null ? (
             <p>No kusaposts from this user</p>
-        ) : (
+        ) : !kusapostIdParam ? (
             kusaposts.map(kusapost => <Kusapost key={kusapost.kusapostId} kusapost={kusapost} />)
+        ) : (
+            kusaposts.map(kusapost => {
+                if(kusapost.kusapostId !== kusapostIdParam)
+                    return <Kusapost key={kusapost.kusapostId} kusapost={kusapost} />
+                else
+                    return <Kusapost key={kusapost.kusapostId} kusapost={kusapost} openDialog />
+            })
         )
         return (
             <Grid container spacing={10}>

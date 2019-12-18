@@ -93,7 +93,7 @@ class Kusapost extends Component {
                         <ChatIcon color="primary"/>
                     </MyButton>
                     <span>{commentCount}</span>
-                    <KusapostDialog kusapostId={kusapostId} userHandle={userHandle} />
+                    <KusapostDialog kusapostId={kusapostId} userHandle={userHandle} openDialog={this.props.openDialog} />
 				</CardContent>
 			</Card>
 		);
@@ -103,7 +103,8 @@ class Kusapost extends Component {
 Kusapost.propTypes = {
     user: PropTypes.object.isRequired,
     kusapost: PropTypes.object.isRequired,
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    openDialog: PropTypes.bool
 }
 
 const mapStateToProps = state => ({

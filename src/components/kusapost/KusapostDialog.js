@@ -54,15 +54,35 @@ const styles = theme => ({
 
 class KusapostDialog extends Component {
     state = {
-        open: false
+        open: false,
+        oldPath: '',
+        newPath: ''
     };
 
+    componentDidMount() {
+        if(this.props.openDialog) {
+            this.handleOpen();
+        }
+    }
+
     handleOpen = () => {
-        this.setState({ open: true });
+        let oldPath = window.location.pathname;
+        
+        const { userHandle, kusapostId } = this.props;
+        const newPath = `/user/${userHandle}/kusapost/${kusapostId}`;
+
+        if(oldPath === newPath) {
+            oldPath = `/user/${userHandle}`;
+        }
+
+        window.history.pushState(null, null, newPath);
+
+        this.setState({ open: true, oldPath, newPath });
         this.props.getKusapost(this.props.kusapostId);
     };
 
     handleClose = () => {
+        window.history.pushState(null, null, this.state.oldPath);
         this.setState({ open: false });
         this.props.clearErrors();
     };
