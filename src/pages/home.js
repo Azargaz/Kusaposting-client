@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import Kusapost from '../components/kusapost/Kusapost';
 import Profile from '../components/profile/Profile'
+import KusapostSkeleton from '../util/KusapostSkeleton';
 
 import { connect } from 'react-redux';
 import { getKusaposts } from '../redux/actions/dataActions';
@@ -17,7 +18,9 @@ class home extends Component {
         const { kusaposts, loading } = this.props.data;
         let recentkusapostsMarkup = !loading ? (
             kusaposts.map((kusapost, id) => <Kusapost key={id} kusapost={kusapost} />)
-        ) : <p>Loading...</p>;
+        ) : (
+            <KusapostSkeleton />
+        );
         return (
             <Grid container spacing={10}>
                 <Grid item sm={8} xs={12}>

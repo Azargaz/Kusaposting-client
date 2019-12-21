@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import Kusapost from '../components/kusapost/Kusapost';
 import StaticProfile from '../components/profile/StaticProfile';
+import KusapostSkeleton from '../util/KusapostSkeleton';
+import ProfileSkeleton from '../util/ProfileSkeleton';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -38,7 +40,7 @@ class user extends Component {
         const { kusapostIdParam } = this.state;
 
         const kusapostsMarkup = loading ? (
-            <p>Loading...</p>
+            <KusapostSkeleton />
         ) : kusaposts === null ? (
             <p>No kusaposts from this user</p>
         ) : !kusapostIdParam ? (
@@ -58,7 +60,7 @@ class user extends Component {
                 </Grid>
                 <Grid item sm={4} xs={12}>
                     {this.state.profile === null ? (
-                        <p>Loading profile...</p>
+                        <ProfileSkeleton />
                     ) : (
                         <StaticProfile profile={this.state.profile} />
                     )}
