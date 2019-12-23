@@ -28,8 +28,9 @@ import axios from "axios";
 
 const theme = createMuiTheme(themeFile);
 
-const token = localStorage.firebaseIdToken;
+axios.defaults.baseURL = 'https://europe-west1-kusaposting.cloudfunctions.net/api';
 
+const token = localStorage.firebaseIdToken;
 if(token) {
 	const decodedToken = jwtDecode(token);
 
