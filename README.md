@@ -14,7 +14,17 @@ Technologies used:
 
 ### Running
 
-Use `npm start` to run the React app.
+Use `npm start` to run the React app locally.
+
+### Building and deployment
+
+Use `npm build` to build the React app.
+If you want to deploy the app to Firebase hosting you will need to:
+- Initialize firebase directory with `firebase init`, choose your firebase project and select only the hosting option.
+- Set the `public` directory to `build`.
+- Configure as a single-page app.
+- Don't override the `index.html`.
+- Use `firebase deploy` to deploy and you should be finished.
 
 ### Credits
 
